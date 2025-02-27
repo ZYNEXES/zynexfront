@@ -1,14 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+// import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Menu, Moon, Sun, User } from 'lucide-react';
+import { Menu, Moon,Sun, User } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import {
   Sheet,
-  SheetClose,
+  // SheetClose,
   SheetContent,
   SheetDescription,
   SheetFooter,
@@ -18,8 +18,8 @@ import {
 } from "@/components/ui/sheet"
 
 export default function Navbar() {
-  const { theme, setTheme } = useTheme();
-  const [isOpen, setIsOpen] = useState(false);
+
+    const { setTheme } = useTheme()
 
   return (
     <nav className="flex items-center justify-between px-6 py-3 shadow-md bg-white dark:bg-gray-900 relative">
@@ -28,28 +28,26 @@ export default function Navbar() {
 
       <Sheet key="top">
       <SheetTrigger asChild>
-      <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsOpen(prev => !prev)}>
+      <Button variant="ghost" className='md:hidden'>
           <Menu className="w-6 h-6" />
         </Button>
       </SheetTrigger>
       <SheetContent side="top">
         <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
+          <SheetTitle>ZYNEX</SheetTitle>
           <SheetDescription>
-            Make changes to your profile here. Click save when you're done.
+            Shipping at it's finest
           </SheetDescription>
         </SheetHeader>
           {/* Mobile Navigation Menu */}
-      <div className={`absolute top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-md md:hidden flex flex-col items-center py-4 space-y-4 transition-transform duration-300 ${isOpen ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0 pointer-events-none'}`}>
-        <Link href="#" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white" onClick={() => setIsOpen(false)}>Home</Link>
-        <Link href="#" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white" onClick={() => setIsOpen(false)}>About</Link>
-        <Link href="#" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white" onClick={() => setIsOpen(false)}>Services</Link>
-        <Link href="#" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white" onClick={() => setIsOpen(false)}>Contact</Link>
+      <div className={`absolute top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-md flex flex-col items-center py-4 space-y-4 transition-transform duration-300`}>
+        <Link href="#" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white" >Home</Link>
+        <Link href="#" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white" >About</Link>
+        <Link href="#" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white" >Services</Link>
+        <Link href="#" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white" >Contact</Link>
       </div>
-        <SheetFooter>
-          <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
-          </SheetClose>
+       <SheetFooter>
+          hello
         </SheetFooter>
       </SheetContent>
     </Sheet>
@@ -74,10 +72,27 @@ export default function Navbar() {
 
       {/* Right Controls */}
       <div className="flex items-center space-x-4">
-        {/* Dark Mode Toggle */}
-        <Button variant="ghost" size="icon" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-          {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+        {/* dark mode toggle */}
+        <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="icon">
+          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
         </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setTheme("light")}>
+          Light
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
+          Dark
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")}>
+          System
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
 
         {/* Profile Dropdown */}
         <DropdownMenu>

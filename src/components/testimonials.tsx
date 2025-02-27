@@ -32,9 +32,9 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <div className="w-full max-w-2xl mx-auto py-10">
+    <div className="w-2/4 maxw-2/4-w-2xl mx-auto py-10">
       <h2 className="text-3xl font-bold text-center mb-6">What Our Customers Say</h2>
-      <Carousel className="w-full">
+      <Carousel className="w-full" >
         <CarouselContent className="-ml-1">
           {testimonials.map((testimonial, index) => (
             <CarouselItem key={index} className="pl-1 md:basis-1/2 lg:basis-1/3">
