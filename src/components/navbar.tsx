@@ -59,7 +59,7 @@ export default function Navbar() {
 
 
       <div className="flex items-center space-x-4">
-        <div className="text-xl font-bold text-gray-900 dark:text-white">MyBrand</div>
+        <div className="text-xl font-bold text-gray-900 dark:text-white">ZYNEX</div>
       </div>
 
       {/* Desktop Navigation Links */}

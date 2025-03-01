@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
         {/* Logo and Description */}
         <div className="text-center md:text-left">
-          <h2 className="text-2xl font-bold">MyBrand</h2>
+          <h2 className="text-2xl font-bold">ZYNEX</h2>
           <p className="text-gray-400 text-sm mt-2">Reliable shipping solutions for your business.</p>
         </div>
 
@@ -37,7 +37,6 @@ export default function Footer() {
 
       {/* Copyright Section */}
       <div className="text-center text-gray-500 text-sm mt-6">
-        hello
       </div>
     </footer>
   );
