@@ -1,4 +1,4 @@
-import {InputSec }from './scomp/input';
+import InputSec from './scomp/input';
 
 import Image from "next/image";
 

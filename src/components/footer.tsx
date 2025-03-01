@@ -37,7 +37,7 @@ export default function Footer() {
 
       {/* Copyright Section */}
       <div className="text-center text-gray-500 text-sm mt-6">
-        &copy; {new Date().getFullYear()} MyBrand. All rights reserved.
+        hello
       </div>
     </footer>
   );

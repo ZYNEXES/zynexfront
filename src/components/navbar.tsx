@@ -36,7 +36,7 @@ export default function Navbar() {
         <SheetHeader>
           <SheetTitle>ZYNEX</SheetTitle>
           <SheetDescription>
-            Shipping at it's finest
+           {" Shipping at it's finest "}
           </SheetDescription>
         </SheetHeader>
           {/* Mobile Navigation Menu */}
