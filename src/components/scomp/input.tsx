@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, JSX } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import {Input} from '@/components/ui/input';
@@ -11,7 +11,7 @@ interface ShipmentInfo {
   sender_name: string;
   current_location: string;
   status: string;
-  [key: string]: any;
+  [key: string]: string;
 }
 
 export default function InputComponent(): JSX.Element {
@@ -26,7 +26,7 @@ export default function InputComponent(): JSX.Element {
       const response = await axios.get<ShipmentInfo>(`http://localhost:8000/api/shipments/track/${trackingNumber}`);
       setShipmentInfo(response.data);
       setError(null);
-    } catch (err: any) {
+    } catch {
       setError("Shipment not found");
       setShipmentInfo(null);
     }
