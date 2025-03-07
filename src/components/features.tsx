@@ -3,7 +3,7 @@ import { Truck, Globe, Clock, Shield } from "lucide-react";
 const features = [
   {
     icon: Truck,
-    title: "Fast & Reliable Delivery",
+    title: "Faster & Reliable Delivery",
     description: "Get your packages delivered quickly and securely to any destination."
   },
   {
