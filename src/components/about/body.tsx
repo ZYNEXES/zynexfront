@@ -26,13 +26,13 @@ const about = [
   },
 ];
 
-export default function AboutUs() {
+export function AboutUs() {
   return (
-    <div className="flex flex-wrap justify-center gap-6 py-10 px-4">
+    <div className="flex flex-wrap justify-center gap-2 py-10 px-2">
       {about.map((item, index) => {
         const Icon = item.icon;
         return (
-          <Card key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4">
+          <Card key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-1">
             <CardHeader>
               <CardTitle className="text-center text-lg font-bold">
                 {item.title}
@@ -41,7 +41,7 @@ export default function AboutUs() {
             <CardContent className="text-center text-sm text-gray-700">
               {item.description}
             </CardContent>
-            <CardFooter className="flex justify-center mt-4">
+            <CardFooter className="flex justify-center mt-2">
               <Icon className="w-8 h-8 text-gray-900 dark:text-white" />
             </CardFooter>
           </Card>
