@@ -43,9 +43,9 @@ export default function Navbar() {
       <div className={`absolute top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-md flex flex-col items-center py-4 space-y-4 transition-transform duration-300`}>
         <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white" >Home</Link>
         <Link href="/about" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white" >About us</Link>
-        <Link href="#" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white" >Services</Link>
-        <Link href="#" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white" >Contact</Link>
-        <Link href="#" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white" >Track</Link>
+        <Link href="/services" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white" >Services</Link>
+        <Link href="contact" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white" >Contact</Link>
+        <Link href="/track" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white" >Track</Link>
       </div>
        <SheetFooter>
           hello
@@ -67,9 +67,9 @@ export default function Navbar() {
       <div className="hidden md:flex items-center space-x-6">
         <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white">Home</Link>
         <Link href="/about" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white">About us</Link>
-        <Link href="#" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white">Services</Link>
-        <Link href="#" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white">Contact</Link>
-        <Link href="#" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white">Track</Link>
+        <Link href="/services" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white">Services</Link>
+        <Link href="/contact" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white">Contact</Link>
+        <Link href="/track" className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white">Track</Link>
       </div>
 
       {/* Right Controls */}

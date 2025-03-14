@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import "../globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import Navbar from '@/components/navbar';
-import Footer from '@/components/footer';
 
 
 const geistSans = Geist({
@@ -28,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -38,11 +36,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Navbar />
-        
         {children}
-       
-        <Footer />
         </ThemeProvider>
         <SpeedInsights />
       </body>

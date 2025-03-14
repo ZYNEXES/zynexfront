@@ -1,53 +1,90 @@
-"use client"
-
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
-
+'use client';
 import {
-  ChartConfig,
-  ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart"
-
-const chartData = [
-  { year: "January", Shipments: 186, success: 80 },
-  { year: "February", Shipments: 305, success: 200 },
-  { year: "March", Shipments: 237, success: 120 },
-  { year: "April", Shipments: 73, success: 190 },
-  { year: "May", Shipments: 209, success: 130 },
-  { year: "June", Shipments: 214, success: 140 },
-]
-
-const chartConfig = {
-  desktop: {
-    label: "Shipments",
-    color: "#2563eb",
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import { Card } from "@/components/ui/card";
+import * as React from "react"
+const ShippingData = [
+  {
+    month: "Jan",
+    parcelsShipped: 2345,
+    successfulDeliveries: 2243,
+    successRate: (2243 / 2345) * 100,
   },
-  mobile: {
-    label: "Success",
-    color: "#60a5fa",
-  },
-} satisfies ChartConfig
+  // ... rest of your data
+];
 
-export function Chart() {
+export default function Chart() {
   return (
-    <ChartContainer config={chartConfig} className="h-96 min-h-[200px] w-full">
-      <BarChart accessibilityLayer data={chartData}>
-        <CartesianGrid vertical={false} />
-        <XAxis
-          dataKey="month"
-          tickLine={false}
-          tickMargin={10}
-          axisLine={false}
-          tickFormatter={(value) => value.slice(0, 3)}
-        />
-        <ChartTooltip content={<ChartTooltipContent />} />
-        <ChartLegend content={<ChartLegendContent />} />
-        <Bar dataKey="Shipments" fill="var(--color-desktop)" radius={4} />
-        <Bar dataKey="success" fill="var(--color-mobile)" radius={4} />
-      </BarChart>
-    </ChartContainer>
-  )
+    <Card className="p-6 bg-black border-blue-800/50">
+      <h2 className="text-xl font-semibold mb-4 text-white">Shipping Performance 2024</h2>
+      <div className="h-[400px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={ShippingData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#1e3a8a" opacity={0.3} />
+            <XAxis
+              dataKey="month"
+              stroke="#e5e7eb"
+              fontSize={12}
+              tick={{ fill: '#e5e7eb' }}
+            />
+            <YAxis
+              stroke="#e5e7eb"
+              fontSize={12}
+              tick={{ fill: '#e5e7eb' }}
+            />
+            <YAxis
+              yAxisId="right"
+              orientation="right"
+              stroke="#e5e7eb"
+              fontSize={12}
+              tickFormatter={(value) => `${value}%`}
+              tick={{ fill: '#e5e7eb' }}
+            />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "#0f172a",
+                borderColor: "#1e3a8a",
+                borderRadius: "8px",
+                color: "#e5e7eb",
+              }}
+              itemStyle={{ color: "#e5e7eb" }}
+            />
+            <Legend 
+              wrapperStyle={{ paddingTop: '20px' }}
+              formatter={(value) => (
+                <span className="text-blue-100">{value}</span>
+              )}
+            />
+            <Bar
+              dataKey="parcelsShipped"
+              name="Parcels Shipped"
+              fill="#1e40af"
+              radius={[4, 4, 0, 0]}
+            />
+            <Bar
+              dataKey="successfulDeliveries"
+              name="Successful Deliveries"
+              fill="#38bdf8"
+              radius={[4, 4, 0, 0]}
+            />
+            <Bar
+              dataKey="successRate"
+              name="Success Rate (%)"
+              fill="#e0f2fe"
+              radius={[4, 4, 0, 0]}
+              yAxisId="right"
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </Card>
+  );
 }
