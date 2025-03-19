@@ -1,9 +1,9 @@
-import Navbar from '@/components/navbar';
-import Hero from '@/components/hero';
-import Hiw from '@/components/hiw';
-import Features from '@/components/features';
-import Testimonials from '@/components/testimonials';
-import Footer from '@/components/footer';
+import {Navbar} from '@/components/navbar';
+import {Hero} from '@/components/hero';
+import {Hiw }from '@/components/hiw';
+import {Features} from '@/components/features';
+import {Testimonials} from '@/components/testimonials';
+import {Footer} from '@/components/footer';
 
 export default function Home() {
   return (

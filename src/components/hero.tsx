@@ -1,8 +1,8 @@
-import InputSec from './scomp/input';
+import {InputComponent} from './scomp/input';
 
 import Image from "next/image";
 
-export default function HeroSection() {
+export  function Hero() {
   return (
     <section className="relative w-full h-screen flex items-center justify-center bg-gray-900 text-white overflow-hidden">
       {/* Background Image */}
@@ -25,7 +25,7 @@ export default function HeroSection() {
           Track your shipments in real-time and get the best logistics service for your business.
         </p>
         <div className="mt-6 flex justify-center gap-4">
-       <InputSec />
+       <InputComponent />
         </div>
       </div>
     </section>

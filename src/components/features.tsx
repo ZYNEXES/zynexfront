@@ -23,7 +23,7 @@ const features = [
   }
 ];
 
-export default function Features() {
+export function Features() {
   return (
     <section className="py-16 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
       <div className="max-w-6xl mx-auto px-6 text-center">

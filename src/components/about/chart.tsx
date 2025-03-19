@@ -21,7 +21,7 @@ const ShippingData = [
   // ... rest of your data
 ];
 
-export default function Chart() {
+export  function Chart() {
   return (
     <Card className="p-6 bg-black border-blue-800/50">
       <h2 className="text-xl font-semibold mb-4 text-white">Shipping Performance 2024</h2>

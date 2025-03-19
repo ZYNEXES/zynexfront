@@ -30,7 +30,7 @@ const testimonials = [
   },
 ];
 
-export default function Testimonials() {
+export  function Testimonials() {
   return (
     <div className="w-2/4 maxw-2/4-w-2xl mx-auto py-10">
       <h2 className="text-3xl font-bold text-center mb-6">What Our Customers Say</h2>

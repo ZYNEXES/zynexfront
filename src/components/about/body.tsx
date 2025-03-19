@@ -26,7 +26,7 @@ const about = [
   },
 ];
 
-export default function AboutUs() {
+export  function AboutUs() {
   return (
     <div className="flex flex-wrap justify-center gap-2 py-10 px-2">
       {about.map((item, index) => {

@@ -17,7 +17,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 
-export default function Navbar() {
+export  function Navbar() {
 
     const { setTheme } = useTheme()
 

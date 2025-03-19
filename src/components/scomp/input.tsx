@@ -14,7 +14,7 @@ interface ShipmentInfo {
   [key: string]: string;
 }
 
-export default function InputComponent(): JSX.Element {
+export  function InputComponent(): JSX.Element {
   const [trackingNumber, setTrackingNumber] = useState<string>("");
   const [shipmentInfo, setShipmentInfo] = useState<ShipmentInfo | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -23,7 +23,7 @@ export default function InputComponent(): JSX.Element {
     e.preventDefault();
     if (!trackingNumber) return;
     try {
-      const response = await axios.get<ShipmentInfo>(`http://localhost:8000/api/shipments/track/${trackingNumber}`);
+      const response = await axios.get<ShipmentInfo>(`https://backend-157g.onrender.com/api/shipments/${trackingNumber}`);
       setShipmentInfo(response.data);
       setError(null);
     } catch {

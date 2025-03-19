@@ -18,7 +18,7 @@ const steps = [
   }
 ];
 
-export default function Hiw() {
+export  function Hiw() {
   return (
     <section className="py-16 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
       <div className="max-w-6xl mx-auto px-6 text-center">
