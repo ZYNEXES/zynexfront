@@ -3,8 +3,11 @@
 import React, { useState, FormEvent, JSX } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
-import {Input} from '@/components/ui/input';
+import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Loader2 } from "lucide-react";
 
 interface ShipmentInfo {
   tracking_number: string;
@@ -14,21 +17,29 @@ interface ShipmentInfo {
   [key: string]: string;
 }
 
-export  function InputComponent(): JSX.Element {
+export function InputComponent(): JSX.Element {
   const [trackingNumber, setTrackingNumber] = useState<string>("");
   const [shipmentInfo, setShipmentInfo] = useState<ShipmentInfo | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleTrackShipment = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!trackingNumber) return;
+
+    setLoading(true);
+    setShipmentInfo(null);
+    setError(null);
+
     try {
-      const response = await axios.get<ShipmentInfo>(`https://backend-157g.onrender.com/api/shipments/track/${trackingNumber}`);
+      const response = await axios.get<ShipmentInfo>(
+        `https://backend-157g.onrender.com/api/shipments/track/${trackingNumber}`
+      );
       setShipmentInfo(response.data);
-      setError(null);
     } catch {
       setError("Shipment not found");
-      setShipmentInfo(null);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -38,51 +49,46 @@ export  function InputComponent(): JSX.Element {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, delay: 1 }}
     >
-      <form
-      className="flex w-full max-w-sm items-center space-x-2"
-        onSubmit={handleTrackShipment}
-      >
+      {/* Form */}
+      <form className="flex w-full max-w-sm items-center space-x-2" onSubmit={handleTrackShipment}>
         <Input
           type="text"
           placeholder="Enter Tracking Number"
           value={trackingNumber}
           onChange={(e) => setTrackingNumber(e.target.value)}
+          disabled={loading}
         />
-        <Button
-          type="submit"
-        >
-          Track
+        <Button type="submit" disabled={loading}>
+          {loading ? <Loader2 className="animate-spin" size={20} /> : "Track"}
         </Button>
       </form>
 
-      {shipmentInfo && (
-        <motion.div
-          className="bg-black bg-opacity-50 justify-items-center text-white rounded-lg mt-4 p-4 shadow-md"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h3 className="text-xl font-bold mb-2">Shipment Info</h3>
-          <p className="mb-1">
-            <span className="font-semibold">Tracking Number:</span> {shipmentInfo.tracking_number}
-          </p>
-          <p className="mb-1">
-            <span className="font-semibold">Sender:</span> {shipmentInfo.sender_name}
-          </p>
-          <p className="mb-1">
-            <span className="font-semibold">Location:</span> {shipmentInfo.current_location}
-          </p>
-          <p>
-            <span className="font-semibold">Status:</span> {shipmentInfo.status}
-          </p>
-          <button
-            className="mt-4 bg-white text-black font-bold py-2 px-6 rounded-full hover:bg-gray-200 transition duration-300"
-          >
-            See More
-          </button>
-        </motion.div>
+      {/* Loading Skeleton */}
+      {loading && (
+        <Card className="mt-4 p-4">
+          <Skeleton className="h-6 w-1/2 mb-2" />
+          <Skeleton className="h-4 w-full mb-1" />
+          <Skeleton className="h-4 w-2/3 mb-1" />
+          <Skeleton className="h-4 w-1/2 mb-1" />
+        </Card>
       )}
 
+      {/* Shipment Info */}
+      {shipmentInfo && !loading && (
+        <Card className="mt-4 p-4">
+          <CardHeader>
+            <CardTitle className="text-lg font-bold">Shipment Details</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p><span className="font-semibold">Tracking Number:</span> {shipmentInfo.tracking_number}</p>
+            <p><span className="font-semibold">Sender:</span> {shipmentInfo.sender_name}</p>
+            <p><span className="font-semibold">Location:</span> {shipmentInfo.current_location}</p>
+            <p><span className="font-semibold">Status:</span> {shipmentInfo.status}</p>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Error Message */}
       {error && (
         <motion.p
           className="text-red-500 font-semibold mt-4"
