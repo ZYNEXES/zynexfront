@@ -1,19 +1,24 @@
-import {Navbar} from '@/components/navbar';
-import {Hero} from '@/components/hero';
-import {Hiw }from '@/components/hiw';
-import {Features} from '@/components/features';
-import {Testimonials} from '@/components/testimonials';
-import {Footer} from '@/components/footer';
+import { Hero } from "@/components/hero"
+import { ServicesOverview } from "@/components/services-overview"
+import { WhyChooseUs } from "@/components/why-choose-us"
+import { StatsSection } from "@/components/stats-section"
+import { HomeTestimonials } from "@/components/home-testimonials"
+import { Partners } from "@/components/partners"
+import { LatestNews } from "@/components/latest-news"
+import { HomeCTA } from "@/components/home-cta"
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div>
-      <Navbar />
-      < Hero />
-      < Features />
-     <Hiw />
-     <Testimonials />
-      <Footer />
-    </div>
-  );
+    <main>
+      <Hero />
+      <ServicesOverview />
+      <WhyChooseUs />
+      <StatsSection />
+      <HomeTestimonials />
+      <Partners />
+      <LatestNews />
+      <HomeCTA />
+    </main>
+  )
 }
+

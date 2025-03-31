@@ -1,46 +1,36 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+// 
+import type React from "react"
+import { Navbar } from "@/components/navbar"
+import { Footer } from "@/components/footer"
+import { ThemeProvider } from "@/components/theme-provider"
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from "@vercel/analytics/react"
-import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider"
-
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import "./globals.css"
+import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "ZYNEX",
-  description: "ZYNEX",
-};
+  title: "Global Shipping Solutions",
+  description: "Reliable, efficient, and secure shipping solutions for businesses and individuals worldwide.",
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-          >
-        {children}
-        </ThemeProvider>
-        <Analytics />
+      <body className="min-h-screen bg-background font-sans antialiased">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <div className="relative flex min-h-screen flex-col">
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+          <Analytics />
         <SpeedInsights />
+        </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

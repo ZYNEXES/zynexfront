@@ -1,18 +1,20 @@
-import React from 'react';
-import {Navbar} from '@/components/navbar';
-import {Footer} from '@/components/footer';
+import { ServiceHero } from "@/components/service-hero"
+import { ServicesList } from "@/components/services-list"
+import { ServiceDetails } from "@/components/service-details"
+import { ServiceComparison } from "@/components/service-comparison"
+import { ServiceTestimonials } from "@/components/service-testimonials"
+import { ServiceCTA } from "@/components/service-cta"
 
-const ContactPage: React.FC = () => {
-    return (
-        
-        <div>
-            <Navbar/>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <h1>Coming Soon</h1>
-            </div>
-            <Footer/>
-        </div>
-    );
-};
+export default function ServicesPage() {
+  return (
+    <main className="min-h-screen bg-white dark:bg-gray-950">
+      <ServiceHero />
+      <ServicesList />
+      <ServiceDetails />
+      <ServiceComparison />
+      <ServiceTestimonials />
+      <ServiceCTA />
+    </main>
+  )
+}
 
-export default ContactPage;

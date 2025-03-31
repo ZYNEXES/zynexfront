@@ -1,18 +1,14 @@
-import React from 'react';
-import {Navbar} from '@/components/navbar';
-import {Footer} from '@/components/footer';
+import { TrackingHero } from "@/components/tracking-hero"
+import { TrackingFAQ } from "@/components/tracking-faq"
+import { TrackingServices } from "@/components/tracking-services"
 
-const ContactPage: React.FC = () => {
-    return (
-        
-        <div>
-            <Navbar/>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <h1>Coming Soon</h1>
-            </div>
-            <Footer/>
-        </div>
-    );
-};
+export default function TrackingPage() {
+  return (
+    <main className="min-h-screen bg-white dark:bg-gray-950">
+      <TrackingHero />
+      <TrackingServices />
+      <TrackingFAQ />
+    </main>
+  )
+}
 
-export default ContactPage;
