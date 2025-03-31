@@ -30,7 +30,7 @@ export function WhyChooseUs() {
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-6">Why Choose Our Shipping Services</h2>
             <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
               With decades of experience in global logistics, we provide reliable, efficient, and secure shipping
-              solutions that help your business thrive in today's competitive market.
+              solutions that help your business thrive in today&#39;s competitive market.
             </p>
 
             <div className="space-y-4">

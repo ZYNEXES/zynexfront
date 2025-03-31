@@ -146,7 +146,7 @@ export function Chart() {
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
         <div className="grid flex-1 gap-1 text-center sm:text-left">
           <CardTitle>Package Delivery Performance</CardTitle>
-          <CardDescription>Comparing your company's package deliveries vs competitors</CardDescription>
+          <CardDescription>Comparing your company&apos;s package deliveries vs competitors</CardDescription>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger className="w-[160px] rounded-lg sm:ml-auto" aria-label="Select a time range">

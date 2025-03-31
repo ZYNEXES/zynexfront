@@ -8,7 +8,7 @@ export default function AboutPage() {
         <div className="py-12 md:py-16">
           <h1 className="text-4xl md:text-5xl font-bold text-center mb-4">About Our Company</h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 text-center max-w-3xl mx-auto mb-16">
-            We're a leading shipping company dedicated to providing exceptional service and innovative logistics
+            We&apos;re a leading shipping company dedicated to providing exceptional service and innovative logistics
             solutions worldwide.
           </p>
         </div>
@@ -27,14 +27,14 @@ export default function AboutPage() {
             <h2 className="text-3xl font-bold mb-6">Our Story</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-4">
               Founded in 2010, our company has grown from a small local delivery service to a global shipping leader.
-              We've built our reputation on reliability, innovation, and customer satisfaction.
+              We&apos;ve built our reputation on reliability, innovation, and customer satisfaction.
             </p>
             <p className="text-gray-600 dark:text-gray-300 mb-4">
               Our mission is to connect businesses and people worldwide through efficient, sustainable, and
               technology-driven shipping solutions.
             </p>
             <p className="text-gray-600 dark:text-gray-300">
-              With a team of dedicated professionals and a state-of-the-art logistics network, we're committed to
+              With a team of dedicated professionals and a state-of-the-art logistics network, we&apos;re committed to
               exceeding expectations with every package we deliver.
             </p>
           </div>
@@ -50,7 +50,7 @@ export default function AboutPage() {
               <div>
                 <h3 className="text-xl font-semibold mb-2">Our Vision</h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                  To be the world's most trusted shipping partner, known for innovation, sustainability, and exceptional
+                  To be the world&apos;s most trusted shipping partner, known for innovation, sustainability, and exceptional
                   service.
                 </p>
               </div>

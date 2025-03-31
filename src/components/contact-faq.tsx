@@ -52,7 +52,7 @@ export function ContactFAQ() {
           </Accordion>
 
           <div className="text-center">
-            <p className="text-gray-600 dark:text-gray-400 mb-4">Can't find the answer you're looking for?</p>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">Can&#39;t find the answer you&#39;re looking for?</p>
             <Button asChild>
               <Link href="/faq">View All FAQs</Link>
             </Button>

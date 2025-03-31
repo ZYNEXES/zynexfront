@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
 
 export function ServiceDetails() {
-  const [activeTab, setActiveTab] = useState("domestic")
+  const [, setActiveTab] = useState("domestic")
 
   return (
     <section className="w-full py-12 md:py-16 bg-gray-50 dark:bg-gray-900">

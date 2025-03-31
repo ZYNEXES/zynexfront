@@ -32,7 +32,7 @@ export function ServiceTestimonials() {
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">What Our Clients Say</h2>
           <p className="mx-auto max-w-[700px] text-gray-500 dark:text-gray-400">
-            Don't just take our word for it. Here's what our clients have to say about our shipping services.
+            Don&#39;t just take our word for it. Here&#39;s what our clients have to say about our shipping services.
           </p>
         </div>
 

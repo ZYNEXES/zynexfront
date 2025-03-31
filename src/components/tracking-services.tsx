@@ -21,7 +21,7 @@ export function TrackingServices() {
                 Hide Example
               </button>
             </div>
-            <TrackingDetail trackingNumber="ABC123456789" />
+            <TrackingDetail />
           </div>
         )}
 

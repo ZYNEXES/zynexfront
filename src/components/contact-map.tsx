@@ -5,7 +5,7 @@ export function ContactMap() {
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">Our Global Presence</h2>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              With offices and logistics centers around the world, we're always close to your shipping needs
+              With offices and logistics centers around the world, we&apos;re always close to your shipping needs
             </p>
           </div>
   

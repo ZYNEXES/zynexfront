@@ -75,8 +75,8 @@ const mockShipmentDetails: ShipmentDetails = {
   ],
 }
 
-export function TrackingDetail({ trackingNumber = "ABC123456789" }) {
-  const [shipment, setShipment] = useState<ShipmentDetails>(mockShipmentDetails)
+export function TrackingDetail() {
+  const [shipment] = useState<ShipmentDetails>(mockShipmentDetails)
 
   // Status color mapping
   const getStatusColor = (status: string) => {
