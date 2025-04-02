@@ -26,7 +26,7 @@ const faqs = [
   {
     question: "How can I become a business partner or vendor?",
     answer:
-      "For business partnership opportunities, please contact our business development team at partners@globalship.com with details about your company and proposed collaboration.",
+      "For business partnership opportunities, please contact our business development team at partners@zynex.com with details about your company and proposed collaboration.",
   },
 ]
 

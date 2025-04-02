@@ -115,7 +115,7 @@ const chartConfig = {
     label: "Packages",
   },
   Zynex: {
-    label: "Your Company",
+    label: "Zynex",
     color: "hsl(var(--chart-1))",
   },
   competitors: {

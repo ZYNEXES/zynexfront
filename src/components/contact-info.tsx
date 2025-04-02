@@ -6,21 +6,21 @@ const offices = [
     city: "New York",
     address: "123 Shipping Lane, New York, NY 10001",
     phone: "+1 (212) 555-7890",
-    email: "newyork@globalship.com",
+    email: "newyork@zynex.com",
     hours: "Mon-Fri: 8:00 AM - 6:00 PM",
   },
   {
     city: "London",
     address: "456 Logistics Road, London, EC1A 1BB",
     phone: "+44 20 7946 0958",
-    email: "london@globalship.com",
+    email: "london@zynex.com",
     hours: "Mon-Fri: 9:00 AM - 5:30 PM",
   },
   {
     city: "Singapore",
     address: "789 Cargo Street, Singapore, 018956",
     phone: "+65 6123 4567",
-    email: "singapore@globalship.com",
+    email: "singapore@zynex.com",
     hours: "Mon-Fri: 9:00 AM - 6:00 PM",
   },
 ]
@@ -45,7 +45,7 @@ export function ContactInfo() {
             <Mail className="h-5 w-5 mr-3 text-primary mt-0.5" />
             <div>
               <p className="font-medium">Email Us</p>
-              <p className="text-gray-600 dark:text-gray-400">info@globalship.com</p>
+              <p className="text-gray-600 dark:text-gray-400">info@zynex.com</p>
             </div>
           </div>
 

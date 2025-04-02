@@ -243,8 +243,8 @@ export function TrackingDetail() {
                         1-800-123-4567
                       </a>{" "}
                       or
-                      <a href="mailto:support@globalship.com" className="text-primary ml-1">
-                        support@globalship.com
+                      <a href="mailto:support@zynex.com" className="text-primary ml-1">
+                        support@zynex.com
                       </a>
                     </p>
                   </div>

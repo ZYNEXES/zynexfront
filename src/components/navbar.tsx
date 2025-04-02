@@ -164,7 +164,7 @@ export function Navbar() {
                   onClick={() => setIsOpen(false)}
                 >
                   <Truck className="h-6 w-6" />
-                  <span>GlobalShip</span>
+                  <span>ZYNEX</span>
                 </Link>
                 <div className="grid gap-3">
                   <Link
@@ -189,7 +189,7 @@ export function Navbar() {
                     Services
                   </Link>
                   <Link
-                    href="/tracking"
+                    href="/track"
                     className="flex w-full items-center py-2 text-lg font-semibold"
                     onClick={() => setIsOpen(false)}
                   >
