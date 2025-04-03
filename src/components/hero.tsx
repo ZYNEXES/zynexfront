@@ -1,25 +1,63 @@
 "use client"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { InputComponent } from "./scomp/input"
 
+// Array of background images
+const backgroundImages = [
+  "/Herobg.jpg",
+  "/bg-hero-2.jpg",
+  "/bg-hero-3.jpg",
+  "/bg-hero-4.jpg",
+  "/bg-hero-5.jpg",
+]
+
 export function Hero() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [fadeIn, setFadeIn] = useState(true)
+
+  useEffect(() => {
+    // Set up the image rotation with fade effect
+    const interval = setInterval(() => {
+      // Start fade out
+      setFadeIn(false)
+
+      // After fade out completes, change the image and fade in
+      setTimeout(() => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length)
+        setFadeIn(true)
+      }, 500) // 500ms for fade out transition
+    }, 3000) // Change image every 5 seconds
+
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <section className="relative w-full min-h-[85vh] flex items-center justify-center overflow-hidden">
       {/* Background Image with Gradient Overlay */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/Herobg.jpg"
-          alt="Shipping Background"
-          fill
-          priority
-          sizes="100vw"
-          quality={90}
-          style={{ objectFit: "cover" }}
-          className="brightness-[0.6]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/70 to-gray-900/90" />
+        {backgroundImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
+              currentImageIndex === index && fadeIn ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <Image
+              src={image || "/placeholder.svg"}
+              alt={`Shipping Background ${index + 1}`}
+              fill
+              priority={index === 0}
+              sizes="100vw"
+              quality={90}
+              style={{ objectFit: "cover" }}
+              className="brightness-[0.6]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-gray-900/70 to-gray-900/90" />
+          </div>
+        ))}
       </div>
 
       {/* Content Container */}

@@ -17,7 +17,7 @@ export function WhyChooseUs() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden">
             <Image
-              src="/placeholder.svg?height=1000&width=800"
+              src="/global-network.jpg"
               alt="Global Shipping Network"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
