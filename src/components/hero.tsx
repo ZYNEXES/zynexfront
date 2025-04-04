@@ -29,7 +29,7 @@ export function Hero() {
         setCurrentImageIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length)
         setFadeIn(true)
       }, 500) // 500ms for fade out transition
-    }, 3000) // Change image every 5 seconds
+    }, 5000) // Change image every 5 seconds
 
     return () => clearInterval(interval)
   }, [])
