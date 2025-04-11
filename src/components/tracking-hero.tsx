@@ -50,6 +50,7 @@ export function TrackingHero({ onTrackingSubmit, initialTrackingNumber }: Tracki
                 <InputComponent />
                 <div className="pt-4 text-sm text-gray-500 dark:text-gray-400">
                   <p>Example tracking numbers: ABC123456789, XYZ987654321</p>
+                  <button hidden onClick={handleSubmit}></button>
                 </div>
               </div>
             </CardContent>

@@ -4,7 +4,7 @@ import { BlogSidebar } from "@/components/blog/blog-sidebar"
 import { BlogRelatedPosts } from "@/components/blog/blog-related-posts"
 import { BlogComments } from "@/components/blog/blog-comments"
 import { BlogAuthor } from "@/components/blog/blog-author"
-import { BlogShareLinks } from "@/components/blog/blog-share-links"
+// import { BlogShareLinks } from "@/components/blog/blog-share-links"
 import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/blog-data"
 import { notFound } from "next/navigation"
 
@@ -34,7 +34,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               <article className="bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
                 <BlogPostContent post={post} />
                 <div className="px-6 py-4 border-t border-gray-100 dark:border-gray-800">
-                  <BlogShareLinks post={post} />
+                  {/* <BlogShareLinks post={post} /> */}
                 </div>
                 <div className="px-6 py-6 border-t border-gray-100 dark:border-gray-800">
                   <BlogAuthor author={post.author} />

@@ -11,10 +11,6 @@ import Link from "next/link"
 import { fetchShipmentWithDelay, type ShipmentDetails } from "@/lib/shipment-data"
 import { addToTrackingHistory } from "@/lib/tracking-history"
 import { TrackingHistory } from "@/components/tracking-history"
-interface TrackingHeroProps {
-  onTrackingSubmit?: (trackingNumber: string) => void
-  initialTrackingNumber?: string | null
-}
 export function InputComponent(): JSX.Element {
   const [trackingNumber, setTrackingNumber] = useState<string>("")
   const [shipmentInfo, setShipmentInfo] = useState<ShipmentDetails | null>(null)
@@ -82,6 +78,7 @@ export function InputComponent(): JSX.Element {
             disabled={loading}
             className="bg-white/20 border-white/30 text-white placeholder:text-gray-300 focus-visible:ring-white"
           />
+          {/* <button hidden onClick={}></button> */}
           <Button type="submit" disabled={loading} className="shrink-0">
             {loading ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Search className="h-4 w-4 mr-2" />}
             Track
