@@ -105,7 +105,7 @@ export function ShippingSuccessChart() {
               </TabsTrigger>
             </TabsList>
           </div>
-
+          <button onClick={renderActiveIcon} hidden>hh</button>
           {Object.keys(transportModes).map((mode) => {
             const transportMode = mode as TransportMode
             return (
