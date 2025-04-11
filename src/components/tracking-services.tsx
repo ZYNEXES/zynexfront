@@ -13,12 +13,12 @@ export function TrackingServices() {
         {showExample && (
           <div className="mb-12">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-              <h2 className="text-2xl font-bold">Example Tracking Result</h2>
+              <h2 className="text-2xl font-bold">Tracking Result</h2>
               <button
                 onClick={() => setShowExample(false)}
                 className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 mt-2 md:mt-0"
               >
-                Hide Example
+                Hide Result
               </button>
             </div>
             <TrackingDetail />

@@ -1,6 +1,7 @@
 import { AboutUs } from "@/components/about/body"
 import { Chart } from "@/components/about/chart"
-import { CompanyGallery } from "@/components/company-gallery"
+import { ShippingSuccessChart } from "@/components/shipping-success-chart"
+// import { CompanyGallery } from "@/components/company-gallery"
 
 export default function AboutPage() {
   return (
@@ -14,9 +15,10 @@ export default function AboutPage() {
           </p>
         </div>
       </div>
-
+   
       <AboutUs />
-      <CompanyGallery />
+      <ShippingSuccessChart />
+      {/* <CompanyGallery /> */}
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <h2 className="text-3xl font-bold mb-8 text-center">Our Performance</h2>
         <Chart />

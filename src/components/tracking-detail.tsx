@@ -1,82 +1,41 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { MapPin, Package, Truck, Calendar, Clock, Info } from "lucide-react"
+import { MapPin, Package, Truck, Calendar, Clock, Info, Loader2 } from "lucide-react"
+import { fetchShipmentWithDelay, type ShipmentDetails } from "@/lib/shipment-data"
 
-interface ShipmentEvent {
-  date: string
-  time: string
-  location: string
-  status: string
-  description: string
-}
+export function TrackingDetail({ trackingNumber }: { trackingNumber: string }) {
+  const [shipment, setShipment] = useState<ShipmentDetails | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
 
-interface ShipmentDetails {
-  trackingNumber: string
-  status: string
-  estimatedDelivery: string
-  service: string
-  weight: string
-  dimensions: string
-  origin: string
-  destination: string
-  events: ShipmentEvent[]
-}
+  useEffect(() => {
+    const fetchShipmentDetails = async () => {
+      try {
+        setLoading(true)
+        const data = await fetchShipmentWithDelay(trackingNumber)
 
-// This would normally come from an API
-const mockShipmentDetails: ShipmentDetails = {
-  trackingNumber: "ABC123456789",
-  status: "In Transit",
-  estimatedDelivery: "June 15, 2023",
-  service: "Express Shipping",
-  weight: "5.2 kg",
-  dimensions: "30 × 20 × 15 cm",
-  origin: "New York, USA",
-  destination: "London, UK",
-  events: [
-    {
-      date: "June 10, 2023",
-      time: "08:30 AM",
-      location: "London Heathrow Airport, UK",
-      status: "Arrived at Destination",
-      description: "Package has arrived at destination airport and is awaiting customs clearance.",
-    },
-    {
-      date: "June 9, 2023",
-      time: "10:15 PM",
-      location: "Frankfurt Airport, Germany",
-      status: "In Transit",
-      description: "Package is in transit to the next facility.",
-    },
-    {
-      date: "June 8, 2023",
-      time: "02:45 PM",
-      location: "JFK International Airport, USA",
-      status: "Departed",
-      description: "Package has departed from origin airport.",
-    },
-    {
-      date: "June 7, 2023",
-      time: "11:20 AM",
-      location: "New York Sorting Facility, USA",
-      status: "Processed",
-      description: "Package has been processed and is ready for departure.",
-    },
-    {
-      date: "June 6, 2023",
-      time: "09:45 AM",
-      location: "New York, USA",
-      status: "Picked Up",
-      description: "Package has been picked up by carrier.",
-    },
-  ],
-}
+        if (data) {
+          setShipment(data)
+          setError(null)
+        } else {
+          setError("Shipment not found")
+        }
+      } catch (error) {
+        setError("Failed to load shipment details")
+        console.error("Error fetching shipment details:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
 
-export function TrackingDetail() {
-  const [shipment] = useState<ShipmentDetails>(mockShipmentDetails)
+    if (trackingNumber) {
+      fetchShipmentDetails()
+    }
+  }, [trackingNumber])
 
   // Status color mapping
   const getStatusColor = (status: string) => {
@@ -94,13 +53,51 @@ export function TrackingDetail() {
     }
   }
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center py-12">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <span className="ml-2">Loading shipment details...</span>
+      </div>
+    )
+  }
+
+  if (error || !shipment) {
+    return (
+      <Card>
+        <CardContent className="p-6 text-center">
+          <div className="text-red-500 dark:text-red-400 mb-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-10 w-10 mx-auto"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </div>
+          <h3 className="text-xl font-bold mb-2">Shipment Not Found</h3>
+          <p className="text-gray-600 dark:text-gray-400">
+            We couldn&apos;t find any information for the tracking number: {trackingNumber}
+          </p>
+        </CardContent>
+      </Card>
+    )
+  }
+
   return (
     <div className="space-y-8">
       {/* Shipment Summary */}
       <Card>
         <CardHeader className="pb-2">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-            <CardTitle>Shipment #{shipment.trackingNumber}</CardTitle>
+            <CardTitle>Shipment #{shipment.tracking_number}</CardTitle>
             <Badge className={getStatusColor(shipment.status)}>{shipment.status}</Badge>
           </div>
         </CardHeader>
@@ -110,7 +107,7 @@ export function TrackingDetail() {
               <Calendar className="h-5 w-5 mr-2 text-gray-500" />
               <div>
                 <p className="text-sm text-gray-500 dark:text-gray-400">Estimated Delivery</p>
-                <p className="font-medium">{shipment.estimatedDelivery}</p>
+                <p className="font-medium">{shipment.estimated_delivery}</p>
               </div>
             </div>
             <div className="flex items-start">
@@ -149,35 +146,41 @@ export function TrackingDetail() {
           <Card>
             <CardContent className="p-6">
               <div className="space-y-6">
-                {shipment.events.map((event, index) => (
-                  <div key={index} className="relative pl-8 pb-6">
-                    {/* Timeline connector */}
-                    {index < shipment.events.length - 1 && (
-                      <div className="absolute left-[9px] top-[24px] bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700" />
-                    )}
+                {shipment.events && shipment.events.length > 0 ? (
+                  shipment.events.map((event, index) => (
+                    <div key={index} className="relative pl-8 pb-6">
+                      {/* Timeline connector */}
+                      {index < shipment.events.length - 1 && (
+                        <div className="absolute left-[9px] top-[24px] bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700" />
+                      )}
 
-                    {/* Status dot */}
-                    <div
-                      className={`absolute left-0 top-1 h-[18px] w-[18px] rounded-full border-2 border-white dark:border-gray-900 ${
-                        index === 0 ? "bg-primary" : "bg-gray-300 dark:bg-gray-600"
-                      }`}
-                    />
+                      {/* Status dot */}
+                      <div
+                        className={`absolute left-0 top-1 h-[18px] w-[18px] rounded-full border-2 border-white dark:border-gray-900 ${
+                          index === 0 ? "bg-primary" : "bg-gray-300 dark:bg-gray-600"
+                        }`}
+                      />
 
-                    <div>
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1">
-                        <h3 className="font-medium">{event.status}</h3>
-                        <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                          <Calendar className="h-4 w-4 mr-1" />
-                          {event.date}
-                          <Clock className="h-4 w-4 ml-3 mr-1" />
-                          {event.time}
+                      <div>
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1">
+                          <h3 className="font-medium">{event.status}</h3>
+                          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                            <Calendar className="h-4 w-4 mr-1" />
+                            {event.date}
+                            <Clock className="h-4 w-4 ml-3 mr-1" />
+                            {event.time}
+                          </div>
                         </div>
+                        <p className="text-gray-600 dark:text-gray-300 mb-1">{event.location}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{event.description}</p>
                       </div>
-                      <p className="text-gray-600 dark:text-gray-300 mb-1">{event.location}</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{event.description}</p>
                     </div>
+                  ))
+                ) : (
+                  <div className="text-center py-8">
+                    <p className="text-gray-500 dark:text-gray-400">No timeline events available for this shipment.</p>
                   </div>
-                ))}
+                )}
               </div>
             </CardContent>
           </Card>
@@ -192,7 +195,7 @@ export function TrackingDetail() {
                   <div className="space-y-3">
                     <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Tracking Number</p>
-                      <p className="font-medium">{shipment.trackingNumber}</p>
+                      <p className="font-medium">{shipment.tracking_number}</p>
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Service Type</p>
@@ -213,6 +216,14 @@ export function TrackingDetail() {
                   <h3 className="text-lg font-semibold mb-3">Shipping Route</h3>
                   <div className="space-y-3">
                     <div>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Sender</p>
+                      <p className="font-medium">{shipment.sender_name}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Receiver</p>
+                      <p className="font-medium">{shipment.receiver_name}</p>
+                    </div>
+                    <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Origin</p>
                       <p className="font-medium">{shipment.origin}</p>
                     </div>
@@ -222,7 +233,7 @@ export function TrackingDetail() {
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Estimated Delivery</p>
-                      <p className="font-medium">{shipment.estimatedDelivery}</p>
+                      <p className="font-medium">{shipment.estimated_delivery}</p>
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Current Status</p>
@@ -243,8 +254,8 @@ export function TrackingDetail() {
                         1-800-123-4567
                       </a>{" "}
                       or
-                      <a href="mailto:support@zynex.com" className="text-primary ml-1">
-                        support@zynex.com
+                      <a href="mailto:support@ZYNEX.com" className="text-primary ml-1">
+                        support@ZYNEX.com
                       </a>
                     </p>
                   </div>
@@ -257,4 +268,3 @@ export function TrackingDetail() {
     </div>
   )
 }
-

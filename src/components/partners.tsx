@@ -18,7 +18,7 @@ export function Partners() {
               className="grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
             >
               <Image
-                src={`/placeholder.svg?height=60&width=120&text=Partner${index + 1}`}
+                src={`/partner${index + 1}.png?height=60&width=120&text=Partner${index + 1}`}
                 alt={`Partner ${index + 1}`}
                 width={120}
                 height={60}

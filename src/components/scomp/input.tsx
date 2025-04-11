@@ -1,27 +1,28 @@
 "use client"
 
-import { useState, type FormEvent, type JSX } from "react"
-import { motion } from "framer-motion"
-import axios from "axios"
+import { useState, useRef, type FormEvent, type JSX } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Loader2, Search } from "lucide-react"
-
-interface ShipmentInfo {
-  tracking_number: string
-  sender_name: string
-  current_location: string
-  status: string
-  [key: string]: string
+import { Loader2, Search, ArrowRight } from "lucide-react"
+import Link from "next/link"
+import { fetchShipmentWithDelay, type ShipmentDetails } from "@/lib/shipment-data"
+import { addToTrackingHistory } from "@/lib/tracking-history"
+import { TrackingHistory } from "@/components/tracking-history"
+interface TrackingHeroProps {
+  onTrackingSubmit?: (trackingNumber: string) => void
+  initialTrackingNumber?: string | null
 }
-
 export function InputComponent(): JSX.Element {
   const [trackingNumber, setTrackingNumber] = useState<string>("")
-  const [shipmentInfo, setShipmentInfo] = useState<ShipmentInfo | null>(null)
+  const [shipmentInfo, setShipmentInfo] = useState<ShipmentDetails | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
+  const [isFocused, setIsFocused] = useState<boolean>(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const formRef = useRef<HTMLFormElement>(null)
 
   const handleTrackShipment = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -32,14 +33,28 @@ export function InputComponent(): JSX.Element {
     setError(null)
 
     try {
-      const response = await axios.get<ShipmentInfo>(
-        `https://backend-157g.onrender.com/api/shipments/track/${trackingNumber}`,
-      )
-      setShipmentInfo(response.data)
+      // Use our simulated API call with delay
+      const shipment = await fetchShipmentWithDelay(trackingNumber)
+
+      if (shipment) {
+        setShipmentInfo(shipment)
+        // Save to tracking history when successful
+        addToTrackingHistory(trackingNumber)
+      } else {
+        setError("Shipment not found")
+      }
     } catch {
-      setError("Shipment not found")
+      setError("Error tracking shipment")
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleSelectTracking = (selectedNumber: string) => {
+    setTrackingNumber(selectedNumber)
+    // Focus the input after selection
+    if (inputRef.current) {
+      inputRef.current.focus()
     }
   }
 
@@ -51,20 +66,44 @@ export function InputComponent(): JSX.Element {
       className="w-full"
     >
       {/* Form */}
-      <form className="flex w-full items-center gap-2" onSubmit={handleTrackShipment}>
-        <Input
-          type="text"
-          placeholder="Enter tracking number"
-          value={trackingNumber}
-          onChange={(e) => setTrackingNumber(e.target.value)}
-          disabled={loading}
-          className="bg-white/20 border-white/30 text-white placeholder:text-gray-300 focus-visible:ring-white"
-        />
-        <Button type="submit" disabled={loading} className="shrink-0">
-          {loading ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Search className="h-4 w-4 mr-2" />}
-          Track
-        </Button>
-      </form>
+      <div className="relative">
+        <form ref={formRef} className="flex w-full items-center gap-2" onSubmit={handleTrackShipment}>
+          <Input
+            ref={inputRef}
+            type="text"
+            placeholder="Enter tracking number"
+            value={trackingNumber}
+            onChange={(e) => setTrackingNumber(e.target.value)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => {
+              // Small delay to allow clicking on history items
+              setTimeout(() => setIsFocused(false), 200)
+            }}
+            disabled={loading}
+            className="bg-white/20 border-white/30 text-white placeholder:text-gray-300 focus-visible:ring-white"
+          />
+          <Button type="submit" disabled={loading} className="shrink-0">
+            {loading ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Search className="h-4 w-4 mr-2" />}
+            Track
+          </Button>
+        </form>
+
+        {/* Tracking History Dropdown (positioned below input) */}
+        <AnimatePresence>
+          {isFocused && (
+            <motion.div
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 5 }}
+              transition={{ duration: 0.2 }}
+              className="absolute left-0 right-0 mt-1 z-50"
+              style={{ width: inputRef.current ? inputRef.current.offsetWidth : "100%" }}
+            >
+              <TrackingHistory onSelectTracking={handleSelectTracking} insertMode={true} dropdownMode={true} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       {/* Loading Skeleton */}
       {loading && (
@@ -80,23 +119,17 @@ export function InputComponent(): JSX.Element {
         </motion.div>
       )}
 
-      {/* Shipment Info */}
+      {/* Shipment Info Preview */}
       {shipmentInfo && !loading && (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <Card className="mt-4 bg-white/10 backdrop-blur-sm border-white/20 text-white">
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg font-bold">Shipment Details</CardTitle>
+              <CardTitle className="text-lg font-bold">Shipment Found</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
                 <p>
                   <span className="font-semibold text-gray-200">Tracking Number:</span> {shipmentInfo.tracking_number}
-                </p>
-                <p>
-                  <span className="font-semibold text-gray-200">Sender:</span> {shipmentInfo.sender_name}
-                </p>
-                <p>
-                  <span className="font-semibold text-gray-200">Location:</span> {shipmentInfo.current_location}
                 </p>
                 <p>
                   <span className="font-semibold text-gray-200">Status:</span>
@@ -112,6 +145,19 @@ export function InputComponent(): JSX.Element {
                     {shipmentInfo.status}
                   </span>
                 </p>
+                <p>
+                  <span className="font-semibold text-gray-200">Current Location:</span>{" "}
+                  {shipmentInfo.current_location_one || shipmentInfo.events[0]?.location || "Information not available"}
+                </p>
+                <div className="pt-3">
+                  <Link
+                    href={`/track?number=${shipmentInfo.tracking_number}`}
+                    className="flex items-center text-primary-foreground hover:underline"
+                  >
+                    View detailed tracking information
+                    <ArrowRight className="ml-1 h-4 w-4" />
+                  </Link>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -141,4 +187,3 @@ export function InputComponent(): JSX.Element {
     </motion.div>
   )
 }
-
