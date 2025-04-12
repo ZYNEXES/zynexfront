@@ -1,46 +1,56 @@
-import { notFound } from "next/navigation"
-import { BlogHeader } from "@/components/blog/blog-header"
-import { BlogList } from "@/components/blog/blog-list"
+import { BlogPostHeader } from "@/components/blog/blog-post-header"
+import { BlogPostContent } from "@/components/blog/blog-post-content"
 import { BlogSidebar } from "@/components/blog/blog-sidebar"
-import { BlogNewsletter } from "@/components/blog/blog-newsletter"
-import { getBlogPostsByCategory } from "@/lib/blog-data"
+import { BlogRelatedPosts } from "@/components/blog/blog-related-posts"
+import { BlogComments } from "@/components/blog/blog-comments"
+import { BlogAuthor } from "@/components/blog/blog-author"
+import { BlogShareLinks } from "@/components/blog/blog-share-links"
+import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/blog-data"
+import { notFound } from "next/navigation"
 
-// Define metadata for the page
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: { category: string } 
-}) {
-  return {
-    title: `${params.category} Articles`,
-    description: `Browse our articles about ${params.category}`
+// Generate static params for all blog posts
+export async function generateStaticParams() {
+  const posts = getAllBlogPosts()
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
+}
+
+// Fix the type error by properly typing the params
+interface PageProps {
+  params: {
+    slug: string
   }
 }
 
-// Make the page component async
-export default async function CategoryPage({ 
-  params 
-}: { 
-  params: { category: string } 
-}) {
-  const categoryName = params.category.replace(/-/g, " ")
-  const posts = await getBlogPostsByCategory(categoryName)
+export default function BlogPostPage({ params }: PageProps) {
+  const post = getBlogPostBySlug(params.slug)
 
-  if (!posts || posts.length === 0) {
+  if (!post) {
     notFound()
   }
 
   return (
     <main className="min-h-screen bg-white dark:bg-gray-950">
-      <BlogHeader
-        title={`${categoryName} Articles`}
-        description={`Browse our latest articles about ${categoryName.toLowerCase()}`}
-      />
+      <BlogPostHeader post={post} />
+
       <section className="py-12 md:py-16">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="lg:col-span-8">
-              <BlogList posts={posts} showPagination={true} />
+              <article className="bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
+                <BlogPostContent post={post} />
+                <div className="px-6 py-4 border-t border-gray-100 dark:border-gray-800">
+                  <BlogShareLinks post={post} />
+                </div>
+                <div className="px-6 py-6 border-t border-gray-100 dark:border-gray-800">
+                  <BlogAuthor author={post.author} />
+                </div>
+              </article>
+
+              <div className="mt-8">
+                <BlogComments />
+              </div>
             </div>
             <div className="lg:col-span-4">
               <BlogSidebar />
@@ -48,7 +58,8 @@ export default async function CategoryPage({
           </div>
         </div>
       </section>
-      <BlogNewsletter />
+
+      <BlogRelatedPosts currentPostId={post.id} />
     </main>
   )
 }
