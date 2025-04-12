@@ -18,13 +18,13 @@ export async function generateStaticParams() {
 
 // Fix the type error by properly typing the params
 interface PageProps {
-  params: {
+  paramses: {
     slug: string
   }
 }
 
-export default function BlogPostPage({ params }: PageProps) {
-  const post = getBlogPostBySlug(params.slug)
+export default function BlogPostPage({ paramses }: PageProps) {
+  const post = getBlogPostBySlug(paramses.slug)
 
   if (!post) {
     notFound()
