@@ -23,10 +23,10 @@ interface PageProps {
   }
 }
 
-// @ts-ignore - Bypassing Next.js auto-generated type constraints
-
+// @ts-expect-error
 export default function BlogPostPage({ params }: PageProps) {
   const post = getBlogPostBySlug(params.slug)
+  
 
   if (!post) {
     notFound()
