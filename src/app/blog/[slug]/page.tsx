@@ -20,13 +20,12 @@ export async function generateStaticParams() {
 // interface PageProps {
 //   params: Promise<{slug: string}>; 
 // }
+export type paramsType = Promise<{ slug: string }>;
 
-
-export default async function BlogPostPage({ params, }:  {
-  params: Promise<{slug: string}>; 
-}) {
-  const resolvedParams = await params;
-  const post = getBlogPostBySlug(resolvedParams.slug)
+export default async function BlogPostPage(props: { 
+  params: paramsType;}) {
+  const {slug} = await props.params;
+  const post = getBlogPostBySlug(slug)
   
 
   if (!post) {
