@@ -1,35 +1,27 @@
-import { BlogPostHeader } from "@/components/blog/blog-post-header"
-import { BlogPostContent } from "@/components/blog/blog-post-content"
-import { BlogSidebar } from "@/components/blog/blog-sidebar"
-import { BlogRelatedPosts } from "@/components/blog/blog-related-posts"
-import { BlogComments } from "@/components/blog/blog-comments"
-import { BlogAuthor } from "@/components/blog/blog-author"
-import { BlogShareLinks } from "@/components/blog/blog-share-links"
-import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/blog-data"
-import { notFound } from "next/navigation"
+import { BlogPostHeader } from "@/components/blog/blog-post-header";
+import { BlogPostContent } from "@/components/blog/blog-post-content";
+import { BlogSidebar } from "@/components/blog/blog-sidebar";
+import { BlogRelatedPosts } from "@/components/blog/blog-related-posts";
+import { BlogComments } from "@/components/blog/blog-comments";
+import { BlogAuthor } from "@/components/blog/blog-author";
+import { BlogShareLinks } from "@/components/blog/blog-share-links";
+import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/blog-data";
+import { notFound } from "next/navigation";
 
 // Generate static params for all blog posts
 export async function generateStaticParams() {
-  const posts = getAllBlogPosts()
+  const posts = await getAllBlogPosts(); // Ensure this is async
   return posts.map((post) => ({
     slug: post.slug,
-  }))
+  }));
 }
 
-
-// interface PageProps {
-//   params: Promise<{slug: string}>; 
-// }
-export type paramsType = Promise<{ slug: string }>;
-
-export default async function BlogPostPage(props: { 
-  params: paramsType;}) {
-  const {slug} = await props.params;
-  const post = getBlogPostBySlug(slug)
-  
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+  const { slug } = params;
+  const post = await getBlogPostBySlug(slug); // Ensure this is async
 
   if (!post) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -63,5 +55,5 @@ export default async function BlogPostPage(props: {
 
       <BlogRelatedPosts currentPostId={post.id} />
     </main>
-  )
+  );
 }
