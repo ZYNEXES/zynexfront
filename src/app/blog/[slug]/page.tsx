@@ -17,16 +17,11 @@ export async function generateStaticParams() {
   }))
 }
 
-interface PageProps {
-  params: { slug: string }
-}
-
-export default async function BlogPostPage({ params }: PageProps) {
-  const { slug } = params
+export default async function BlogPostPage({ params: { slug } }: { params: { slug: string } }) {
   const post = await getBlogPostBySlug(slug)
 
   if (!post) {
-    notFound() // If the post is not found, display a 404
+    notFound() // Display a 404 if the post is not found
   }
 
   return (
