@@ -7,18 +7,23 @@ import { BlogAuthor } from "@/components/blog/blog-author";
 import { BlogShareLinks } from "@/components/blog/blog-share-links";
 import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/blog-data";
 import { notFound } from "next/navigation";
-
+import {use} from "react";
 // Generate static params for all blog posts
 export async function generateStaticParams() {
-  const posts = await getAllBlogPosts(); // Ensure this is async
+  const posts = getAllBlogPosts(); // Ensure this is async
   return posts.map((post) => ({
     slug: post.slug,
   }));
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
-  const post = await getBlogPostBySlug(slug); // Ensure this is async
+
+type Params = Promise<{ slug: string }>
+
+
+export default function BlogPostPage(props: { params: Params} ) {
+  const params = use(props.params)
+  const slug = params.slug
+  const post =  getBlogPostBySlug(slug); // Ensure this is async
 
   if (!post) {
     notFound();
