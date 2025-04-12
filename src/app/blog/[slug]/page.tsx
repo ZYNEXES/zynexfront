@@ -16,15 +16,15 @@ export async function generateStaticParams() {
   }))
 }
 
-// Fix the type error by properly typing the params
+// Define props type
 interface PageProps {
-  paramses: {
+  params: {
     slug: string
   }
 }
 
-export default function BlogPostPage({ paramses }: PageProps) {
-  const post = getBlogPostBySlug(paramses.slug)
+export default function BlogPostPage({ params }: PageProps) {
+  const post = getBlogPostBySlug(params.slug)
 
   if (!post) {
     notFound()
@@ -52,6 +52,7 @@ export default function BlogPostPage({ paramses }: PageProps) {
                 <BlogComments />
               </div>
             </div>
+
             <div className="lg:col-span-4">
               <BlogSidebar />
             </div>
