@@ -1,3 +1,6 @@
+import { notFound } from "next/navigation"
+import { getAllBlogPosts, getBlogPostBySlug } from "@/lib/blog-data"
+
 import { BlogPostHeader } from "@/components/blog/blog-post-header"
 import { BlogPostContent } from "@/components/blog/blog-post-content"
 import { BlogSidebar } from "@/components/blog/blog-sidebar"
@@ -5,26 +8,25 @@ import { BlogRelatedPosts } from "@/components/blog/blog-related-posts"
 import { BlogComments } from "@/components/blog/blog-comments"
 import { BlogAuthor } from "@/components/blog/blog-author"
 import { BlogShareLinks } from "@/components/blog/blog-share-links"
-import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/blog-data"
-import { notFound } from "next/navigation"
 
-// Generate static params for all blog posts
+// Generate static params for SSG
 export async function generateStaticParams() {
-  const posts = getAllBlogPosts()
+  const posts = await getAllBlogPosts()
   return posts.map((post) => ({
     slug: post.slug,
   }))
 }
 
-// Define props type
+// Define the type for the async params
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
-export default function BlogPostPage({ params }: PageProps) {
-  const post = getBlogPostBySlug(params.slug)
+export default async function BlogPostPage({ params }: PageProps) {
+  const { slug } = await params // Await the params to get the slug
+  const post = await getBlogPostBySlug(slug)
 
   if (!post) {
     notFound()
