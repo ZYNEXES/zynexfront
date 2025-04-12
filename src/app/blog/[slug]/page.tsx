@@ -9,7 +9,10 @@ import { BlogComments } from "@/components/blog/blog-comments"
 import { BlogAuthor } from "@/components/blog/blog-author"
 import { BlogShareLinks } from "@/components/blog/blog-share-links"
 
-// Generate static params for SSG
+// Define the type for async params
+type Params = Promise<{ slug: string }>
+
+// Generate static params for SSG (Static Site Generation)
 export async function generateStaticParams() {
   const posts = await getAllBlogPosts()
   return posts.map((post) => ({
@@ -17,19 +20,16 @@ export async function generateStaticParams() {
   }))
 }
 
-// Define the type for the async params
 interface PageProps {
-  params: Promise<{
-    slug: string
-  }>
+  params: Params
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
-  const { slug } = await params // Await the params to get the slug
+  const { slug } = await params // Await params to get the slug
   const post = await getBlogPostBySlug(slug)
 
   if (!post) {
-    notFound()
+    notFound() // If the post is not found, display a 404
   }
 
   return (
