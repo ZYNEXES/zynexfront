@@ -16,16 +16,15 @@ export async function generateStaticParams() {
   }))
 }
 
-// Using @ts-ignore to bypass the type error
+
 interface PageProps {
-  params: {
-    slug: string
-  }
+  params: Promise<{slug: string}>; 
 }
 
-// @ts-expect-error Server Component
-export default function BlogPostPage({ params }: PageProps) {
-  const post = getBlogPostBySlug(params.slug)
+
+export default async function BlogPostPage({ params }: PageProps) {
+  const resolvedParams = await params;
+  const post = getBlogPostBySlug(resolvedParams.slug)
   
 
   if (!post) {
