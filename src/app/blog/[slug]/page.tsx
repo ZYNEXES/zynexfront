@@ -5,16 +5,28 @@ import { BlogSidebar } from "@/components/blog/blog-sidebar"
 import { BlogNewsletter } from "@/components/blog/blog-newsletter"
 import { getBlogPostsByCategory } from "@/lib/blog-data"
 
-// Remove Promise type and use direct object type
-export default function CategoryPage({ 
+// Define metadata for the page
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: { category: string } 
+}) {
+  return {
+    title: `${params.category} Articles`,
+    description: `Browse our articles about ${params.category}`
+  }
+}
+
+// Make the page component async
+export default async function CategoryPage({ 
   params 
 }: { 
   params: { category: string } 
 }) {
   const categoryName = params.category.replace(/-/g, " ")
-  const posts = getBlogPostsByCategory(categoryName)
+  const posts = await getBlogPostsByCategory(categoryName)
 
-  if (posts.length === 0) {
+  if (!posts || posts.length === 0) {
     notFound()
   }
 
