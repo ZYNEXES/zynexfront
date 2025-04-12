@@ -9,9 +9,6 @@ import { BlogComments } from "@/components/blog/blog-comments"
 import { BlogAuthor } from "@/components/blog/blog-author"
 import { BlogShareLinks } from "@/components/blog/blog-share-links"
 
-// Define the type for async params
-type Params = Promise<{ slug: string }>
-
 // Generate static params for SSG (Static Site Generation)
 export async function generateStaticParams() {
   const posts = await getAllBlogPosts()
@@ -21,11 +18,11 @@ export async function generateStaticParams() {
 }
 
 interface PageProps {
-  params: Params
+  params: { slug: string }
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
-  const { slug } = await params // Await params to get the slug
+  const { slug } = params
   const post = await getBlogPostBySlug(slug)
 
   if (!post) {
