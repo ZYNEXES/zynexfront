@@ -23,7 +23,7 @@ interface PageProps {
   }
 }
 
-// @ts-expect-error
+// @ts-expect-error Server Component
 export default function BlogPostPage({ params }: PageProps) {
   const post = getBlogPostBySlug(params.slug)
   
