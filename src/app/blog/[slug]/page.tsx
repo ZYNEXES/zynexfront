@@ -16,14 +16,12 @@ export async function generateStaticParams() {
   }))
 }
 
-// Fix the type error by properly typing the params
-interface PageProps {
-  params: {
-    slug: string
-  }
-}
-
-export default function BlogPostPage({ params }: PageProps) {
+// Remove the custom PageProps interface and use the correct typing approach for Next.js 15
+export default function BlogPostPage({
+  params,
+}: {
+  params: { slug: string }
+}) {
   const post = getBlogPostBySlug(params.slug)
 
   if (!post) {
