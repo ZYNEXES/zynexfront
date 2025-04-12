@@ -59,15 +59,6 @@ type TransportMode = keyof typeof transportModes
 export function ShippingSuccessChart() {
   const [activeTab, setActiveTab] = useState<TransportMode>("road")
 
-  const renderActiveIcon = () => {
-    const IconComponent = transportModes[activeTab].icon
-    return (
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 rounded-full p-4 shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-center">
-        <IconComponent className="h-10 w-10 text-primary" />
-      </div>
-    )
-  }
-
   return (
     <section className="py-16 md:py-24 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -105,7 +96,7 @@ export function ShippingSuccessChart() {
               </TabsTrigger>
             </TabsList>
           </div>
-          <button onClick={renderActiveIcon} hidden>hh</button>
+
           {Object.keys(transportModes).map((mode) => {
             const transportMode = mode as TransportMode
             return (

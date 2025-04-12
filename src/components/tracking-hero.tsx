@@ -1,7 +1,5 @@
 "use client"
 
-import type React from "react"
-
 import { Card, CardContent } from "@/components/ui/card"
 import { InputComponent } from "@/components/scomp/input"
 import { useState, useEffect } from "react"
@@ -21,13 +19,6 @@ export function TrackingHero({ onTrackingSubmit, initialTrackingNumber }: Tracki
     }
   }, [initialTrackingNumber])
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (trackingNumber && onTrackingSubmit) {
-      onTrackingSubmit(trackingNumber)
-    }
-  }
-
   return (
     <section className="py-16 md:py-24 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto max-w7xl px-4 sm:px-6 lg:px-8">
@@ -37,7 +28,7 @@ export function TrackingHero({ onTrackingSubmit, initialTrackingNumber }: Tracki
             Enter your tracking number to get real-time updates on your package location and delivery status
           </p>
         </div>
-
+        <button onAuxClick={() => onTrackingSubmit?.(trackingNumber) } hidden>{trackingNumber}</button>
         <div className="max-w-3xl mx-auto">
           <Card className="border shadow-sm bg-white dark:bg-gray-800">
             <CardContent className="p-6 md:p-8">
@@ -46,11 +37,9 @@ export function TrackingHero({ onTrackingSubmit, initialTrackingNumber }: Tracki
                 <p className="text-gray-600 dark:text-gray-400">
                   Enter your tracking number below to check the current status of your shipment.
                 </p>
-              
                 <InputComponent />
                 <div className="pt-4 text-sm text-gray-500 dark:text-gray-400">
                   <p>Example tracking numbers: ABC123456789, XYZ987654321</p>
-                  <button hidden onClick={handleSubmit}></button>
                 </div>
               </div>
             </CardContent>
