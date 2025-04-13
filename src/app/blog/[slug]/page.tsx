@@ -16,16 +16,14 @@ export async function generateStaticParams() {
   }))
 }
 
-// Using @ts-ignore to bypass the type error
-interface PageProps {
-  params: {
-    slug: string
-  }
-}
+// Using the new pattern for handling params
+type Params = Promise<{ slug: string }>
 
+export default async function BlogPostPage({ params }: { params: Params }) {
+  // Await and destructure the params
+  const { slug } = await params
 
-export default function BlogPostPage({ params }: PageProps) {
-  const post = getBlogPostBySlug(params.slug)
+  const post = getBlogPostBySlug(slug)
 
   if (!post) {
     notFound()
