@@ -209,6 +209,13 @@ export function Navbar() {
                   >
                     Contact
                   </Link>
+                  <Link
+                    href="/blog"
+                    className="flex w-full items-center py-2 text-lg font-semibold"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Blogs
+                  </Link>
                 </div>
                 <Button asChild className="w-full" onClick={() => setIsOpen(false)}>
                   <Link href="/quote">Get a Quote</Link>

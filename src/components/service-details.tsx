@@ -13,7 +13,7 @@ export function ServiceDetails() {
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Service Details</h2>
           <p className="mx-auto max-w-[700px] text-gray-500 dark:text-gray-400">
-            Explore our shipping options in detail to find the perfect solution for your needs.
+            Explore our shipping and storage options in detail to find the perfect solution for your needs.
           </p>
         </div>
 
