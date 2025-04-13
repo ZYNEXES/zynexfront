@@ -15,7 +15,7 @@ const articles = [
     title: "Expanding Our Global Network to South America",
     excerpt: "Our shipping network now covers all major South American ports with faster delivery times.",
     date: "May 22, 2023",
-    image: "/blog/southamerica.jpg?height=200&width=400&text=Global-Network",
+    image: "/blog/south.jpg?height=200&width=400&text=Global-Network",
     slug: "/blog/south-america-expansion",
   },
   {
