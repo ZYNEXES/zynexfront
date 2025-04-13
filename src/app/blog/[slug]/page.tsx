@@ -18,9 +18,11 @@ export async function generateStaticParams() {
 
 
 // Using the new pattern for handling params
-type Params = { slug: string }
 
-export default async function BlogPostPage({ params }: { params: Params }) {
+export default async function BlogPostPage({ params,
+}: {
+  params: { slug: string }; // Inline type definition
+}) {
   // Await and destructure the params
   const { slug } =  params
 
