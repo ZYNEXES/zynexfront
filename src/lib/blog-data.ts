@@ -787,7 +787,7 @@ export interface BlogAuthor {
       slug: "south-america-expansion",
       date: "May 22, 2023",
       readTime: "8 min read",
-      image: "/blog/southamerica.jpg?height=600&width=1200&text=South+America+Expansion",
+      image: "/blog/south.jpg?height=600&width=1200&text=South+America+Expansion",
       category: "Global Network",
       tags: ["expansion", "south america", "global shipping", "ports"],
       author: authors.sarahJohnson,
