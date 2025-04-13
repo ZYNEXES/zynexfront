@@ -16,12 +16,13 @@ export async function generateStaticParams() {
   }))
 }
 
+
 // Using the new pattern for handling params
-type Params = Promise<{ slug: string }>
+type Params = { slug: string }
 
 export default async function BlogPostPage({ params }: { params: Params }) {
   // Await and destructure the params
-  const { slug } = await params
+  const { slug } =  params
 
   const post = getBlogPostBySlug(slug)
 
