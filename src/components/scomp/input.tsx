@@ -148,7 +148,7 @@ export function InputComponent(): JSX.Element {
                 </p>
                 <div className="pt-3">
                   <Link
-                    href={`/tracking?number=${shipmentInfo.tracking_number}`}
+                    href={`/track?number=${shipmentInfo.tracking_number}`}
                     className="flex items-center text-primary-foreground hover:underline"
                   >
                     View detailed tracking information
