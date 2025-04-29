@@ -39,7 +39,6 @@ export function TrackingHero({ onTrackingSubmit, initialTrackingNumber }: Tracki
                 </p>
                 <InputComponent />
                 <div className="pt-4 text-sm text-gray-500 dark:text-gray-400">
-                  <p>Example tracking numbers: ABC123456789, XYZ987654321</p>
                 </div>
               </div>
             </CardContent>
