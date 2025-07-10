@@ -127,7 +127,31 @@ export interface ShipmentEvent {
         },
       ],
     },
-    // You can easily add more shipments here
+    DEF567891234: {
+  tracking_number: "DEF567891234",
+  status: "In Transit",
+  estimated_delivery: "July 15, 2025", // Monday next week
+  service: "Highly Secure Shipping",
+  weight: "1.56 cts",
+  dimensions: "6.04 mm x 4.11 mm x 2.75 mm; 6.02 mm x 4.18 mm x 2.78 mm",
+  origin: "Erbil, Iraq",
+  destination: "Berlin, Germany",
+  sender_name: "Axon Logistics via Emma Schmidt",
+  receiver_name: "Emma Schmidt",
+  current_location_one: "In transit to Istanbul, Turkey",
+  current_status_one: "In Transit",
+  events: [
+    {
+      date: "July 10, 2025",
+      time: "12:00 PM",
+      location: "Erbil, Iraq",
+      status: "Departed",
+      description: "Shipment left Erbil en route to Istanbul transit hub.",
+    },
+    // You can add more events later as the shipment progresses
+  ],
+}
+
   }
   
   // Function to get shipment by tracking number
