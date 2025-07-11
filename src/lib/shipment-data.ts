@@ -150,7 +150,7 @@ export interface ShipmentEvent {
     },
     {
       date: "July 10, 2025",
-      time: "01:38 PM",
+      time: "04:38 PM",
       location: "Istanbul Transit Hub, Turkey",
       status: "Arrived",
       description: "Package arrived at Istanbul and will be on the way to Berlin soon.",
