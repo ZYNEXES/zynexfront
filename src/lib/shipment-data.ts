@@ -127,7 +127,7 @@ export interface ShipmentEvent {
         },
       ],
     },
-    DEF567891234: {
+ DEF567891234: {
   tracking_number: "DEF567891234",
   status: "In Transit",
   estimated_delivery: "July 15, 2025", // Monday next week
@@ -139,7 +139,7 @@ export interface ShipmentEvent {
   sender_name: "Axon Logistics via Emma Schmidt",
   receiver_name: "Emma Schmidt",
   current_location_one: "Istanbul Transit Hub, Turkey",
-  current_status_one: "In Transit",
+  current_status_one: "Arrived",
   events: [
     {
       date: "July 10, 2025",
@@ -152,7 +152,7 @@ export interface ShipmentEvent {
       date: "July 10, 2025",
       time: "01:38 PM",
       location: "Istanbul Transit Hub, Turkey",
-      status: "In Transit",
+      status: "Arrived",
       description: "Package arrived at Istanbul and will be on the way to Berlin soon.",
     },
   ],
