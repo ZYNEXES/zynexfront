@@ -139,7 +139,7 @@ export interface ShipmentEvent {
   sender_name: "Axon Logistics via Emma Schmidt",
   receiver_name: "Emma Schmidt",
   current_location_one: "Istanbul Transit Hub, Turkey",
-  current_status_one: "Arrived",
+  current_status_one: "I transit",
   events: [
     {
       date: "July 10, 2025",
@@ -154,6 +154,13 @@ export interface ShipmentEvent {
       location: "Istanbul Transit Hub, Turkey",
       status: "Arrived",
       description: "Package arrived at Istanbul and will be on the way to Berlin soon.",
+    },
+    {
+      date: "July 14, 2025",
+      time: "7.59 am",
+      location: "Berlin, Germany",
+      status: "in transit",
+      description: "En route to Destination",
     },
   ],
 }
