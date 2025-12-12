@@ -129,7 +129,7 @@ export interface ShipmentEvent {
     },
  DEF567891234: {
   tracking_number: "DEF567891234",
-  status: "In Transit",
+  status: "In Transit, VAT cleared",
   estimated_delivery: "July 15, 2025", // Monday next week
   service: "Highly Secure Shipping",
   weight: "1.56 cts",
